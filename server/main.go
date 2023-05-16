@@ -3,7 +3,11 @@ package main
 import (
 	"net/http"
 
+	"fmt"
+
 	"github.com/gin-gonic/gin"
+
+	"github.com/maja42/goval"
 )
 
 var db = make(map[string]string)
@@ -15,6 +19,10 @@ func setupRouter() *gin.Engine {
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
+		eval := goval.NewEvaluator()
+		result, err := eval.Evaluate(`42 > 21`, nil, nil)
+		fmt.Print(result)
+		fmt.Print(err)
 		c.String(http.StatusOK, "pong")
 	})
 
